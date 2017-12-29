@@ -10,7 +10,7 @@
 
 ## 效果
 
-![SerialNumberModule](../docs/AlphaScrollModule.gif)
+![SerialNumberModule](./docs/AlphaScrollModule.gif)
 
 ## 安装
 
