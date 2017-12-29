@@ -1,0 +1,28 @@
+{
+  "name": "ion-alpha-scroll",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenyuanchn/ion-alpha-scroll"
+  },
+  "author": {
+    "name": "chenyuan",
+    "email": "chenyuanchn@foxmail.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chenyuanchn/ion-alpha-scroll/issues"
+  },
+  "main": "ion-alpha-scroll.umd.js",
+  "module": "ion-alpha-scroll.js",
+  "jsnext:main": "ion-alpha-scroll.js",
+  "typings": "ion-alpha-scroll.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}
