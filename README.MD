@@ -2,7 +2,7 @@
 
 ## 来源
 
-在原作者的基础上增加支持拼音，作者项目如下:
+在原作者的基础上增加支持拼音，原作者项目如下:
 
 [squallliu/ion-alpha-scroll](https://github.com/squallliu/ion-alpha-scroll)
 
