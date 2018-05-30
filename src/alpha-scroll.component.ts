@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import * as Hammer from 'hammerjs';
 import {
     Component,
     ElementRef,
@@ -36,7 +37,56 @@ const ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             </li>
         </ul>
     `,
-    styleUrls: ['alpha-scroll.component.scss']
+    styles: [`
+        .ion-alpha-list {
+            padding-right: 20px;
+        }
+
+        .ion-alpha-list .item {
+            border-right: none;
+        }
+
+        .ion-alpha-sidebar {
+            position: fixed;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            z-index: 50000;
+        }
+
+        .ion-alpha-sidebar li {
+            line-height: 1.1;
+            list-style: none;
+            width: 20px;
+            text-align: center;
+        }
+
+        .ion-alpha-letter-indicator {
+            -webkit-transition: opacity 150ms ease-in-out;
+            transition: opacity 150ms ease-in-out;
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            color: white;
+            display: flex;
+            visibility: hidden;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            z-index: 999;
+        }
+
+        .ion-alpha-invalid a {
+            color: #cccccc;
+        }
+
+        .ion-alpha-active a {
+            color: darkkhaki !important;
+        }
+    `]
 })
 export class AlphaScrollComponent implements OnInit, OnChanges, OnDestroy {
     @Input() listData: any;
@@ -46,7 +96,6 @@ export class AlphaScrollComponent implements OnInit, OnChanges, OnDestroy {
     private letterIndicatorEle: HTMLElement;
     private indicatorHeight: number;
     private indicatorWidth: number;
-    private hammer: HammerManager;
     sortedItems: any = [];
     alphabet: any = [];
 
@@ -88,10 +137,6 @@ export class AlphaScrollComponent implements OnInit, OnChanges, OnDestroy {
         if (this.letterIndicatorEle) {
             this.letterIndicatorEle.remove();
         }
-
-        if (this.hammer) {
-            this.hammer.destroy();
-        }
     }
 
     setAlphaClass(alpha: any): string {
@@ -117,23 +162,23 @@ export class AlphaScrollComponent implements OnInit, OnChanges, OnDestroy {
 
         if (!sidebarEle) return;
 
-        this.hammer = new Hammer(sidebarEle, {
+        let mcHammer = new Hammer(sidebarEle, {
             recognizers: [
                 [Hammer.Pan, {direction: Hammer.DIRECTION_VERTICAL}],
             ]
         });
 
-        this.hammer.on('panstart', () => {
+        mcHammer.on('panstart', () => {
             this.letterIndicatorEle.style.top = ((window.innerHeight - this.indicatorHeight) / 2) + 'px';
             this.letterIndicatorEle.style.left = ((window.innerWidth - this.indicatorWidth) / 2) + 'px';
             this.letterIndicatorEle.style.visibility = 'visible';
         });
 
-        this.hammer.on('panend pancancel', () => {
+        mcHammer.on('panend pancancel', () => {
             this.letterIndicatorEle.style.visibility = 'hidden';
         });
 
-        this.hammer.on('panup pandown', _.throttle((e: any) => {
+        mcHammer.on('panup pandown', _.throttle((e: any) => {
             let closestEle: any = document.elementFromPoint(e.center.x, e.center.y);
             if (closestEle && ['LI', 'A'].indexOf(closestEle.tagName) > -1) {
                 let letter = closestEle.innerText;

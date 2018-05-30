@@ -27,16 +27,12 @@ $ npm install ion-alpha-scroll --save
 import { AlphaScrollModule } from 'ion-alpha-scroll';
 
 @NgModule({
-  declarations: [
-    xxComponent
-  ],
+  ...
   imports: [
-    xxModule,
     // 导入模块
     AlphaScrollModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [xxComponent]
+  ...
 })
 export class AppModule { }
 ```
